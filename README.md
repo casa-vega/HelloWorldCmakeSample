@@ -1,4 +1,4 @@
-This is an extremely simple example C++ application which uses CMake. 
+This is an extremely simple example C++ application which uses CMake and MSbuild. 
 It will build and install an application called CMakeHelloWorld which simply outputs "Hello, world!" to stdout.  
 
 ### Installation ###
