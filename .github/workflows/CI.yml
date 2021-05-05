@@ -46,7 +46,6 @@ jobs:
       working-directory: build
       run: msbuild CMakeHelloWorld.sln
 
-jobs:
   Linux:
     name: build-Linux
     runs-on: ubuntu-latest
