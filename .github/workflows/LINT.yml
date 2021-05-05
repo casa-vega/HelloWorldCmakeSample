@@ -1,3 +1,5 @@
+name: LINT
+
 on:
   push:
     branches-ignore: [master]
