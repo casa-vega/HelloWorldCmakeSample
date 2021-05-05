@@ -5,9 +5,10 @@ project (CMakeHelloWorld)
 set (CMakeHelloWorld_VERSION_MAJOR 1)
 set (CMakeHelloWorld_VERSION_MINOR 0)
 
-#find dependencies
-#find_package(cppzmq REQUIRED)
-
+#find dependencies for win32
+if (WIN32)
+    find_package(cppzmq REQUIRED)
+endif (WIN32)
 
 #include the subdirectory containing our libs
 add_subdirectory (Hello)
