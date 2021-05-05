@@ -32,9 +32,10 @@ jobs:
         mkdir build
         cd build
         cmake .. -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/../vcpkg/scripts/buildsystems/vcpkg.cmake
+    
+    - name: Setup MSBuild.exe
+      uses: warrenbuckley/Setup-MSBuild@v1
 
-    - name: Build Solution (windows)
-      run: |
-        echo “::add-path::C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin”
-        cd build
-        MSBuild.exe CMakeHelloWorld.sln
+    - name: MSBuild
+      working-directory: build
+      run: msbuild CMakeHelloWorld.sln
