@@ -72,6 +72,6 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: linux-hello-world
-        path: CMakeHelloWorld
+        path: build/CMakeHelloWorld
         retention-days: 2
 
