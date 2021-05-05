@@ -5,6 +5,6 @@ using namespace std;
 
 namespace Hello {
   void Speaker::sayHello() {
-    cout << "Hello, world!\nDisclaimer: The program uses cppzmq from vcpkg library as its dependencies";
+    cout << "Hello, world!\nDisclaimer: The program uses cppzmq from vcpkg library as its dependencies for WIN32";
   }
 }
