@@ -46,6 +46,13 @@ jobs:
       working-directory: build
       run: msbuild CMakeHelloWorld.sln
 
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: win32-hello-world
+        path: CMakeHelloWorld
+        retention-days: 2
+
   Linux:
     name: build-linux
     runs-on: ubuntu-latest
@@ -53,8 +60,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v1
-      with:
-          submodules: recursive
 
     - name: Running cmake (linux)
       run: |
@@ -62,4 +67,11 @@ jobs:
         mkdir build
         cd build
         cmake .. && make
+        
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: linux-hello-world
+        path: CMakeHelloWorld
+        retention-days: 2
 
