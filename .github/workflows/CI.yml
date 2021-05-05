@@ -45,3 +45,23 @@ jobs:
     - name: MSBuild
       working-directory: build
       run: msbuild CMakeHelloWorld.sln
+
+jobs:
+  Linux:
+    name: build-Linux
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+      with:
+          submodules: recursive
+
+    - name: Running cmake (linux)
+      run: |
+        cd ${{ github.workspace }}
+        mkdir build
+        cd build
+        cmake .. && make
+        make install
+
