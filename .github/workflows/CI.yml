@@ -47,7 +47,7 @@ jobs:
       run: msbuild CMakeHelloWorld.sln
 
   Linux:
-    name: build-Linux
+    name: build-linux
     runs-on: ubuntu-latest
 
     steps:
