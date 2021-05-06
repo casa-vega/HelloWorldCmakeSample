@@ -43,7 +43,7 @@ jobs:
       run: |
         msbuild CMakeHelloWorld.sln
         dir
-        dir x64
+        dir Debug
         dir CMakeHelloWorld.dir
 
     - name: Upload artifact
