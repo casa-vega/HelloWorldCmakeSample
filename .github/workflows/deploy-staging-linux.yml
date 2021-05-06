@@ -2,7 +2,7 @@ name: DEPLOY-LINUX-STAGING
 
 on:
   workflow_run:
-    workflows: ["build-linux"]
+    workflows: ["CI-LINUX"]
     branches: [master]
     types: 
       - completed
