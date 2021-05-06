@@ -40,7 +40,10 @@ jobs:
 
     - name: MSBuild
       working-directory: build
-      run: msbuild CMakeHelloWorld.sln
+      run: |
+        dir
+        msbuild CMakeHelloWorld.sln
+        
 
     - name: Upload artifact
       uses: actions/upload-artifact@v2
