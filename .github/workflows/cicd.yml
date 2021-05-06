@@ -115,7 +115,7 @@ jobs:
     needs: [test-win32, test-linux]
     runs-on: ubuntu-latest
     environment: 
-      name: linux-taging
+      name: linux-staging
       url: 'http://linux.stage.cadence.com'
     steps:
       - name: Deploy
