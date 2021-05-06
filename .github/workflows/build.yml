@@ -81,8 +81,8 @@ jobs:
     needs: [build-win32, build-linux]
     runs-on: windows-latest
     environment: 
-      name: Staging
-      url: 'http://test.myapp.com'
+      name: win32-staging
+      url: 'http://win32.stage.cadence.com'
     steps:
       - name: Deploy
         run: echo I am deploying! 
@@ -93,8 +93,8 @@ jobs:
     needs: [build-win32, build-linux]
     runs-on: ubuntu-latest
     environment: 
-      name: Staging
-      url: 'http://test.myapp.com'
+      name: linux-taging
+      url: 'http://linux.stage.cadence.com'
     steps:
       - name: Deploy
         run: echo I am deploying! 
@@ -104,8 +104,8 @@ jobs:
     needs: [deploy-linux-staging, deploy-win32-staging]
     runs-on: ubuntu-latest
     environment: 
-      name: Production
-      url: 'http://www.myapp.com'
+      name: win32-production
+      url: 'http://win32.prod.cadence.com'
     steps:
       - name: Deploy
         run: echo I am deploying! 
@@ -115,8 +115,8 @@ jobs:
     needs: [deploy-linux-staging, deploy-win32-staging]
     runs-on: ubuntu-latest
     environment: 
-      name: Production
-      url: 'http://www.myapp.com'
+      name: linux-production
+      url: 'http://linux.prod.cadence.com'
     steps:
       - name: Deploy
         run: echo I am deploying! 
