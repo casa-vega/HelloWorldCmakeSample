@@ -38,7 +38,7 @@ jobs:
   deploy-linux-staging:
     name: Deploy Linux to Staging 
     if: github.event.ref == 'refs/heads/master'
-    needs: [build-win32, build-linux]
+    needs: [build-linux]
     runs-on: ubuntu-latest
     environment: 
       name: Staging
@@ -49,7 +49,7 @@ jobs:
 
   deploy-linux-production:
     name: Deploy Linux to Production 
-    needs: [deploy-linux-staging, deploy-win32-staging]
+    needs: [deploy-linux-staging]
     runs-on: ubuntu-latest
     environment: 
       name: Production
