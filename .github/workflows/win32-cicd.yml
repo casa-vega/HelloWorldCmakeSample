@@ -52,7 +52,7 @@ jobs:
   deploy-win32-staging:
     name: Deploy Win32 to Staging 
     if: github.event.ref == 'refs/heads/master'
-    needs: [build-win32, build-linux]
+    needs: [build-win32]
     runs-on: windows-latest
     environment: 
       name: Staging
@@ -63,7 +63,7 @@ jobs:
 
   deploy-win32-production:
     name: Deploy Win32 to Production 
-    needs: [deploy-linux-staging, deploy-win32-staging]
+    needs: [deploy-win32-staging]
     runs-on: ubuntu-latest
     environment: 
       name: Production
