@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  Linux:
+  staging-linux:
     name: Deploy to Staging 
     if: github.event.ref == 'refs/heads/master'
     needs: [build-linux]
