@@ -71,25 +71,25 @@ jobs:
         path: build/CMakeHelloWorld
         retention-days: 2
         
-    deploy-linux-staging:
-      name: Deploy to Staging 
-      if: github.event.ref == 'refs/heads/master'
-      needs: [build-linux]
-      runs-on: ubuntu-latest
-      environment: 
-        name: Staging
-        url: 'http://test.myapp.com'
-      steps:
-        - name: Deploy
-          run: echo I am deploying! 
+  deploy-linux-staging:
+    name: Deploy to Staging 
+    if: github.event.ref == 'refs/heads/master'
+    needs: [build-linux]
+    runs-on: ubuntu-latest
+    environment: 
+      name: Staging
+      url: 'http://test.myapp.com'
+    steps:
+      - name: Deploy
+        run: echo I am deploying! 
 
-    deploy-linux-production:
-      name: Deploy to Production 
-      needs: [deploy-linux-staging]
-      runs-on: ubuntu-latest
-      environment: 
-        name: Production
-        url: 'http://www.myapp.com'
-      steps:
-        - name: Deploy
-          run: echo I am deploying! 
+  deploy-linux-production:
+    name: Deploy to Production 
+    needs: [deploy-linux-staging]
+    runs-on: ubuntu-latest
+    environment: 
+      name: Production
+      url: 'http://www.myapp.com'
+    steps:
+      - name: Deploy
+        run: echo I am deploying! 
