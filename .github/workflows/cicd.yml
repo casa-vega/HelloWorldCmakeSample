@@ -85,7 +85,9 @@ jobs:
       with:
         name: linux-hello-world
     - name: run
-      run: ./CMakeHelloWorld
+      run: |
+        chmod +x CMakeHelloWorld
+        ./CMakeHelloWorld
 
   deploy-win32-staging:
     name: Deploy Win32 to Staging 
@@ -102,7 +104,7 @@ jobs:
   deploy-linux-staging:
     name: Deploy Linux to Staging 
     if: github.event.ref == 'refs/heads/master'
-    needs: [build-win32, build-linux]
+    needs: [test-linux]
     runs-on: ubuntu-latest
     environment: 
       name: linux-taging
