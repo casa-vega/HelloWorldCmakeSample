@@ -1,0 +1,52 @@
+name: CI-WIN32
+
+on:
+  push:
+    branches:
+      - master
+  pull_request: {}
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'     
+        required: true
+        default: 'warning'
+
+jobs:
+  Windows:
+    name: build-windows
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+      with:
+          submodules: recursive
+
+    - name: Installing vcpkg (windows)
+      run: |
+        cd ..
+        git clone https://github.com/Microsoft/vcpkg.git
+        cd vcpkg
+        git checkout --force 2020.01
+        .\bootstrap-vcpkg.bat
+        .\vcpkg.exe install cppzmq:x64-windows
+    - name: Running cmake (windows)
+      run: |
+        cd ${{ github.workspace }}
+        mkdir build
+        cd build
+        cmake .. -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/../vcpkg/scripts/buildsystems/vcpkg.cmake
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: MSBuild
+      working-directory: build
+      run: msbuild CMakeHelloWorld.sln
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: win32-hello-world
+        path: build/CMakeHelloWorld
+        retention-days: 2
