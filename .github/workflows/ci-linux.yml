@@ -1,5 +1,5 @@
 name: CI-LINUX
-# Workflow file for windows
+
 on:
   push:
     branches:
