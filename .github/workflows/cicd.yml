@@ -188,5 +188,5 @@ jobs:
         artifacts: "linux.zip, win32.zip"
         body: "Linux / Win32 Hello World Binaries"
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: ${{ steps.tag.outputs.new_tag }}
+        tag: ${{ steps.tag_version.outputs.new_tag }}
         
