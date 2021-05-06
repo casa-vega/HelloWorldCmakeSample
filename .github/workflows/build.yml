@@ -49,7 +49,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: win32-hello-world
-        path: build\CMakeHelloWorld
+        path: CMakeHelloWorld
         retention-days: 2
 
   build-linux:
