@@ -75,6 +75,19 @@ jobs:
         path: build/CMakeHelloWorld
         retention-days: 2
 
+  test-linux:
+    name: Test Linux
+    runs-on: ubuntu-latest
+    needs: [build-linux]
+    
+    steps:
+    - uses: actions/download-artifact@v2
+      with:
+        name: linux-hello-world
+    - name: run
+       run: ./CMakeHelloWorld
+    
+
   deploy-win32-staging:
     name: Deploy Win32 to Staging 
     if: github.event.ref == 'refs/heads/master'
