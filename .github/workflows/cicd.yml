@@ -40,11 +40,7 @@ jobs:
 
     - name: MSBuild
       working-directory: build
-      run: |
-        msbuild CMakeHelloWorld.sln
-        dir
-        dir Debug
-        dir CMakeHelloWorld.dir
+      run: msbuild CMakeHelloWorld.sln
 
     - name: Upload artifact
       uses: actions/upload-artifact@v2
@@ -116,7 +112,7 @@ jobs:
   deploy-linux-staging:
     name: Deploy Linux to Staging 
     if: github.event.ref == 'refs/heads/master'
-    needs: [test-linux]
+    needs: [test-win32, test-linux]
     runs-on: ubuntu-latest
     environment: 
       name: linux-taging
