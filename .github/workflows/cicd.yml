@@ -95,7 +95,7 @@ jobs:
       with:
         name: win32-hello-world
     - name: run
-      run: cmd CMakeHelloWorld.exe
+      run: ${{ github.workspace }}\CMakeHelloWorld.exe
 
   deploy-win32-staging:
     name: Deploy Win32 to Staging 
