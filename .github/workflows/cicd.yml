@@ -50,7 +50,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: win32-hello-world
-        path: ${{ github.workspace }}/Debug/CMakeHelloWorld.exe
+        path: ${{ github.workspace }}\Debug\CMakeHelloWorld.exe
         retention-days: 2
 
   build-linux:
