@@ -1,0 +1,76 @@
+name: Win32 CI+CD
+
+on:
+  push:
+    branches:
+      - master
+  pull_request: {}
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'     
+        required: true
+        default: 'warning'
+
+jobs:
+  build-win32:
+    name: Build Win32
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Installing vcpkg (windows)
+      run: |
+        cd ..
+        git clone https://github.com/Microsoft/vcpkg.git
+        cd vcpkg
+        git checkout --force 2020.01
+        .\bootstrap-vcpkg.bat
+        .\vcpkg.exe install cppzmq:x64-windows
+    - name: Running cmake (windows)
+      run: |
+        cd ${{ github.workspace }}
+        mkdir build
+        cd build
+        cmake .. -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/../vcpkg/scripts/buildsystems/vcpkg.cmake
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: MSBuild
+      working-directory: build
+      run: |
+        msbuild CMakeHelloWorld.sln
+        dir
+        dir x64
+        dir CMakeHelloWorld.dir
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: win32-hello-world
+        path: CMakeHelloWorld
+        retention-days: 2
+
+  deploy-win32-staging:
+    name: Deploy Win32 to Staging 
+    if: github.event.ref == 'refs/heads/master'
+    needs: [build-win32, build-linux]
+    runs-on: windows-latest
+    environment: 
+      name: Staging
+      url: 'http://test.myapp.com'
+    steps:
+      - name: Deploy
+        run: echo I am deploying! 
+
+  deploy-win32-production:
+    name: Deploy Win32 to Production 
+    needs: [deploy-linux-staging, deploy-win32-staging]
+    runs-on: ubuntu-latest
+    environment: 
+      name: Production
+      url: 'http://www.myapp.com'
+    steps:
+      - name: Deploy
+        run: echo I am deploying!
