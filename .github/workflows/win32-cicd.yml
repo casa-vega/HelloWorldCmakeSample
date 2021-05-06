@@ -42,14 +42,11 @@ jobs:
       working-directory: build
       run: |
         msbuild CMakeHelloWorld.sln
-        dir
-        dir x64
-        dir CMakeHelloWorld.dir
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
         name: win32-hello-world
-        path: CMakeHelloWorld
+        path: Debug/CMakeHelloWorld.exe
         retention-days: 2
 
   deploy-win32-staging:
