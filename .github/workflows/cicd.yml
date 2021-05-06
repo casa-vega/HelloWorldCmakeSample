@@ -74,7 +74,7 @@ jobs:
   test-linux:
     name: Test Linux
     runs-on: ubuntu-latest
-    #needs: [build-linux]
+    needs: [build-linux]
     
     steps:
     - uses: actions/download-artifact@v2
@@ -88,14 +88,14 @@ jobs:
   test-win32:
     name: Test Win32
     runs-on: windows-latest
-    #needs: [build-win32]
+    needs: [build-win32]
     
     steps:
     - uses: actions/download-artifact@v2
       with:
         name: win32-hello-world
     - name: run
-      run: start CMakeHelloWorld.exe
+      run: cmd CMakeHelloWorld.exe
 
   deploy-win32-staging:
     name: Deploy Win32 to Staging 
