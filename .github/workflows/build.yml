@@ -41,9 +41,8 @@ jobs:
     - name: MSBuild
       working-directory: build
       run: |
-        dir
         msbuild CMakeHelloWorld.sln
-        
+        dir
 
     - name: Upload artifact
       uses: actions/upload-artifact@v2
@@ -73,11 +72,23 @@ jobs:
         name: linux-hello-world
         path: build/CMakeHelloWorld
         retention-days: 2
-        
+
+  deploy-win32-staging:
+    name: Deploy to Staging 
+    if: github.event.ref == 'refs/heads/master'
+    needs: [build-win32, build-linux]
+    runs-on: windows-latest
+    environment: 
+      name: Staging
+      url: 'http://test.myapp.com'
+    steps:
+      - name: Deploy
+        run: echo I am deploying! 
+
   deploy-linux-staging:
     name: Deploy to Staging 
     if: github.event.ref == 'refs/heads/master'
-    needs: [build-linux]
+    needs: [build-win32, build-linux]
     runs-on: ubuntu-latest
     environment: 
       name: Staging
@@ -86,9 +97,9 @@ jobs:
       - name: Deploy
         run: echo I am deploying! 
 
-  deploy-linux-production:
+  deploy-win32-production:
     name: Deploy to Production 
-    needs: [deploy-linux-staging]
+    needs: [deploy-linux-staging, deploy-win32-staging]
     runs-on: ubuntu-latest
     environment: 
       name: Production
@@ -96,3 +107,15 @@ jobs:
     steps:
       - name: Deploy
         run: echo I am deploying! 
+
+  deploy-linux-production:
+    name: Deploy to Production 
+    needs: [deploy-linux-staging, deploy-win32-staging]
+    runs-on: ubuntu-latest
+    environment: 
+      name: Production
+      url: 'http://www.myapp.com'
+    steps:
+      - name: Deploy
+        run: echo I am deploying! 
+
