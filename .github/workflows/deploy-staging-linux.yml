@@ -2,20 +2,15 @@ name: DEPLOY-LINUX-STAGING
 
 on:
   push:
-    branches:
-      - master
-  pull_request: {}
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
   workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'     
-        required: true
-        default: 'warning'
 
 jobs:
   Linux:
     name: Deploy to Staging 
-    if: github.event.ref == 'refs/heads/main'
+    if: github.event.ref == 'refs/heads/master'
     needs: [CI-LINUX]
     runs-on: ubuntu-latest
     environment: 
