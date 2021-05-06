@@ -1,17 +1,16 @@
 name: DEPLOY-LINUX-STAGING
 
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-  workflow_dispatch:
+  workflow_run:
+    workflows: ["build-linux"]
+    branches: [master]
+    types: 
+      - completed
 
 jobs:
   staging-linux:
     name: Deploy to Staging 
     if: github.event.ref == 'refs/heads/master'
-    needs: [build-linux]
     runs-on: ubuntu-latest
     environment: 
       name: Staging
